@@ -5,11 +5,16 @@
     <form v-else @submit.prevent="onSave">
         <div class="row">
             <div class="col-6">
-                <div class="form-group">
-                    <label>Subject</label>
-                    <input v-model="todo.subject" type="text" class="form-control">
-                    <div v-if="subjectError" class="text-red">{{subjectError}}</div>
-                </div>
+<!--                <div class="form-group">-->
+<!--                    <label>Subject</label>-->
+<!--                    <input v-model="todo.subject" type="text" class="form-control">-->
+<!--                    <div v-if="subjectError" class="text-red">{{subjectError}}</div>-->
+<!--                </div>-->
+                <InputComp
+                    label="Subject"
+                    v-model:subject="todo.subject"
+                    :error="subjectError"
+                />
             </div>
             <div v-if="editing" class="col-6">
                 <div class="form-group">
@@ -58,13 +63,15 @@
 <script>
 import {useRoute, useRouter} from "vue-router";
 import axios from "axios";
-import {computed, ref} from "vue";
+import {computed, ref, onUpdated} from "vue";
 import _ from "lodash";
 import ToastComp from "@/components/ToastComp.vue";
 import { useToast } from "@/composables/toast";
+import InputComp from "@/components/InputComp.vue";
 
 export default {
     components: {
+        InputComp,
         ToastComp,
     },
     props: {
@@ -80,6 +87,9 @@ export default {
             subject: '',
             computed: false,
             body: '',
+        });
+        onUpdated(() => {
+            console.log(todo.value.subject);
         });
         const originalTodo = ref(null);
         const loading = ref(false);
@@ -171,10 +181,6 @@ export default {
 </script>
 
 <style scoped>
-.text-red{
-    color: red;
-}
-
 .fade-enter-active,
 .fade-leave-active {
     transition: all 0.5s ease;

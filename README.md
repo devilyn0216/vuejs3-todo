@@ -1,4 +1,5 @@
 # vue3-project
+https://www.youtube.com/watch?v=1go09GfXqpQ&list=PLB7CpjPWqHOu6NnQJEGbofB5KO1j2ab9I
 
 ## Project setup
 ```
