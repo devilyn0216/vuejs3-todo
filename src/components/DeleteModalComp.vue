@@ -25,11 +25,14 @@
 
 <script>
 import ModalComp from "@/components/ModalComp.vue";
+import {getCurrentInstance} from "vue";
 
 export default {
     components: {ModalComp},
 
-    setup(props, { emit }){
+    setup(){
+        const { emit } = getCurrentInstance();
+
         const onClose = () => {
             emit('close');
         };
