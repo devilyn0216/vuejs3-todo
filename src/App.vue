@@ -1,48 +1,26 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <router-link class="navbar-brand" :to="{name: 'Home'}">Kossie Coder</router-link>
+    <NavbarComp />
 
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <router-link class="nav-link" :to="{name: 'Todos'}">Todos</router-link>
-            </li>
-        </ul>
-    </nav>
     <div class="container">
         <router-view />
     </div>
-    <ToastComp v-if="showToast" :message="toastMessage" :type="toastAlertType" />
+
+    <ToastComp />
+
 </template>
 
 <script>
 import ToastComp from "@/components/ToastComp.vue";
-import { useToast } from "@/composables/toast";
+import NavbarComp from "@/components/NavbarComp.vue";
 
 export default {
     components: {
         ToastComp,
-    },
-
-    setup() {
-        const {
-            toastMessage,
-            toastAlertType,
-            showToast,
-            triggerToast,
-        } = useToast();
-
-        console.log(showToast.value);
-
-        return {
-            toastMessage,
-            toastAlertType,
-            showToast,
-            triggerToast,
-        };
+        NavbarComp,
     },
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

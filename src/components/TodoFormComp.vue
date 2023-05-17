@@ -55,9 +55,6 @@
             Cancel
         </button>
     </form>
-    <transition name="fade">
-      <ToastComp v-if="showToast" :message="toastMessage" :type="toastAlertType" />
-    </transition>
 </template>
 
 <script>
@@ -65,14 +62,12 @@ import {useRoute, useRouter} from "vue-router";
 import axios from "@/axios";
 import {computed, ref, onUpdated} from "vue";
 import _ from "lodash";
-import ToastComp from "@/components/ToastComp.vue";
 import { useToast } from "@/composables/toast";
 import InputComp from "@/components/InputComp.vue";
 
 export default {
     components: {
         InputComp,
-        ToastComp,
     },
     props: {
         editing: {
@@ -187,20 +182,5 @@ export default {
 </script>
 
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-    transition: all 0.5s ease;
-}
 
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0;
-    transform: translateY(-30px);
-}
-
-.fade-enter-to,
-.fade-leave-from {
-    opacity: 1;
-    transform: translateY(0px);
-}
 </style>

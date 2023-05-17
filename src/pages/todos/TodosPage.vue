@@ -19,36 +19,42 @@
         </div>
         <TodoList :todos="todos" @toggle-todo="toggleTodo" @delete-todo="deleteTodo" />
         <hr>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li v-if="currentPage !== 1" class="page-item"><a style="cursor: pointer;" class="page-link" @click="getTodos(currentPage-1)">Previous</a></li>
-                <li
-                    class="page-item"
-                    v-for="page in numberOfPages"
-                    :key="page"
-                    :class="currentPage === page ? 'active': ''"
-                >
-                    <a style="cursor: pointer;" class="page-link" href="#" @click="getTodos(page)">{{ page }}</a>
-                </li>
-                <li v-if="currentPage !== numberOfPages" class="page-item"><a style="cursor: pointer;" class="page-link" @click="getTodos(currentPage+1)">Next</a></li>
-            </ul>
-        </nav>
+<!--        <nav aria-label="Page navigation example">-->
+<!--            <ul class="pagination">-->
+<!--                <li v-if="currentPage !== 1" class="page-item"><a style="cursor: pointer;" class="page-link" @click="getTodos(currentPage-1)">Previous</a></li>-->
+<!--                <li-->
+<!--                    class="page-item"-->
+<!--                    v-for="page in numberOfPages"-->
+<!--                    :key="page"-->
+<!--                    :class="currentPage === page ? 'active': ''"-->
+<!--                >-->
+<!--                    <a style="cursor: pointer;" class="page-link" href="#" @click="getTodos(page)">{{ page }}</a>-->
+<!--                </li>-->
+<!--                <li v-if="currentPage !== numberOfPages" class="page-item"><a style="cursor: pointer;" class="page-link" @click="getTodos(currentPage+1)">Next</a></li>-->
+<!--            </ul>-->
+<!--        </nav>-->
+        <PaginationComp
+            v-if="todos.length"
+            :currentPage="currentPage"
+            :numberOfPages="numberOfPages"
+            @click="getTodos"
+        />
     </div>
-    <ToastComp v-if="showToast" :message="toastMessage" :type="toastAlertType" />
 </template>
 
 <script>
 import {computed, ref, watch} from "vue";
 import TodoList from "@/components/TodoList.vue";
 import axios from "@/axios";
-import ToastComp from "@/components/ToastComp.vue";
 import { useToast } from "@/composables/toast";
 import {useRouter} from "vue-router";
+import PaginationComp from "@/components/PaginationComp.vue";
+
 
 export default {
     components: {
+        PaginationComp,
         TodoList,
-        ToastComp,
     },
     setup() {
         const router = useRouter();
